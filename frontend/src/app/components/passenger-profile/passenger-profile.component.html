@@ -1,0 +1,43 @@
+<div class="container page-container">
+  <div class="profile-card" *ngIf="profile">
+    <div class="profile-header">
+      <div class="avatar-circle">✈️</div>
+      <div>
+        <h1>{{ profile.name }}</h1>
+        <p class="ff-tier">Frequent Flyer ID: <strong>{{ profile.frequentFlyerNumber }}</strong> | Miles Balance: <strong>{{ profile.milesBalance }} pts</strong></p>
+      </div>
+      <button class="btn btn-secondary" (click)="isEditing = !isEditing">
+        {{ isEditing ? 'Cancel Edit' : 'Edit Profile' }}
+      </button>
+    </div>
+
+    <div *ngIf="message" class="alert-success">{{ message }}</div>
+
+    <div class="profile-details" *ngIf="!isEditing">
+      <div class="detail-row"><span>Email:</span> <strong>{{ profile.email }}</strong></div>
+      <div class="detail-row"><span>Mobile Phone:</span> <strong>{{ profile.phone || 'Not provided' }}</strong></div>
+      <div class="detail-row"><span>Passport Number:</span> <strong>{{ profile.passportNumber }}</strong></div>
+      <div class="detail-row"><span>Nationality:</span> <strong>{{ profile.nationality }}</strong></div>
+    </div>
+
+    <form *ngIf="isEditing" (ngSubmit)="saveProfile()" class="edit-form">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" [(ngModel)]="profile.name" name="name" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="text" [(ngModel)]="profile.phone" name="phone" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Passport Number</label>
+        <input type="text" [(ngModel)]="profile.passportNumber" name="passport" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nationality</label>
+        <input type="text" [(ngModel)]="profile.nationality" name="nationality" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
+</div>

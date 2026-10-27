@@ -1,0 +1,27 @@
+<div class="container page-container">
+  <div class="header-banner">
+    <h1>Airport Amenities & Passenger Services</h1>
+    <p>Everything you need for a comfortable layover, expedited clearance, and shopping experience.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+    <p>Loading airport terminal facilities...</p>
+  </div>
+
+  <div *ngIf="!isLoading" class="services-grid">
+    <div *ngFor="let s of services" class="service-card">
+      <div class="card-category">{{ s.category }}</div>
+      <h2>{{ s.title }}</h2>
+      <p class="service-desc">{{ s.description }}</p>
+      
+      <div class="service-meta">
+        <div>📍 <strong>Location:</strong> {{ s.terminalLocation }}</div>
+        <div>🕒 <strong>Hours:</strong> {{ s.openingHours }}</div>
+        <div>💳 <strong>Pricing:</strong> {{ s.priceInfo }}</div>
+      </div>
+      
+      <a routerLink="/contact" class="btn btn-secondary btn-sm">Inquire / Book Service</a>
+    </div>
+  </div>
+</div>

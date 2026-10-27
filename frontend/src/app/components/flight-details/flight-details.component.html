@@ -1,0 +1,76 @@
+<div class="container page-container">
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+    <p>Loading flight specifications & route telemetry...</p>
+  </div>
+
+  <div *ngIf="errorMsg" class="error-box">
+    {{ errorMsg }}
+    <a routerLink="/flights" class="btn btn-secondary">Back to Flights</a>
+  </div>
+
+  <div *ngIf="!isLoading && flight" class="flight-details-card">
+    <div class="card-header">
+      <div>
+        <span class="badge" [ngClass]="'badge-' + (flight?.status || '').toLowerCase().replace(' ', '-')">{{ flight?.status }}</span>
+        <h1>{{ flight?.airline }} — {{ flight?.flightNumber }}</h1>
+        <p class="aircraft-model">Aircraft Model: <strong>{{ flight?.aircraftModel }}</strong></p>
+      </div>
+      <div class="fare-box">
+        <span class="fare-label">Starting From</span>
+        <span class="fare-price">${{ flight?.economyFare }}</span>
+      </div>
+    </div>
+
+    <!-- Route Overview Bar -->
+    <div class="route-banner">
+      <div class="route-point">
+        <div class="iata-code">{{ flight?.originCode }}</div>
+        <div class="city-name">{{ flight?.originCity }}</div>
+        <div class="time-stamp">{{ flight?.scheduledDeparture | date:'shortTime' }}</div>
+      </div>
+      <div class="flight-path">
+        <span>✈️ Non-stop</span>
+        <div class="path-line"></div>
+      </div>
+      <div class="route-point">
+        <div class="iata-code">{{ flight?.destinationCode }}</div>
+        <div class="city-name">{{ flight?.destinationCity }}</div>
+        <div class="time-stamp">{{ flight?.scheduledArrival | date:'shortTime' }}</div>
+      </div>
+    </div>
+
+    <!-- Technical & Terminal Specs Grid -->
+    <div class="specs-grid">
+      <div class="spec-card">
+        <div class="spec-label">Terminal</div>
+        <div class="spec-val">{{ flight?.terminal }}</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Boarding Gate</div>
+        <div class="spec-val">{{ flight?.gate }}</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Baggage Claim</div>
+        <div class="spec-val">{{ flight?.baggageCarousel }}</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Seats Remaining</div>
+        <div class="spec-val">{{ flight?.availableSeats }} seats</div>
+      </div>
+    </div>
+
+    <!-- In-Flight Amenities -->
+    <div class="amenities-section" *ngIf="flight?.amenities">
+      <h3>In-Flight Services & Amenities</h3>
+      <div class="amenity-tags">
+        <span *ngFor="let a of flight?.amenities" class="amenity-badge">✓ {{ a }}</span>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a [routerLink]="['/booking']" [queryParams]="{flightId: flight?.id}" class="btn btn-primary">Book This Flight Now</a>
+      <a routerLink="/flights" class="btn btn-secondary">Back to Flight Board</a>
+    </div>
+  </div>
+</div>

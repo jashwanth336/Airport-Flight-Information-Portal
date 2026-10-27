@@ -1,0 +1,67 @@
+<div class="container page-container">
+  <div class="header-section">
+    <h1>Luggage & Checked Baggage Tracking</h1>
+    <p>Real-time airport baggage scanning system from check-in drop to carousel delivery.</p>
+  </div>
+
+  <!-- Search By Bag Tag -->
+  <div class="track-box">
+    <input type="text" [(ngModel)]="searchTag" placeholder="Enter Baggage Tag Number (e.g. BAG-902148)" class="form-control" />
+    <button class="btn btn-primary" (click)="onTrack()">Track Baggage</button>
+  </div>
+
+  <div *ngIf="searchError" class="alert-error">{{ searchError }}</div>
+
+  <!-- Searched Bag Result -->
+  <div *ngIf="searchedRecord" class="tracked-card">
+    <div class="tracked-header">
+      <div>
+        <span class="tag-title">Tag Number: {{ searchedRecord.tagNumber }}</span>
+        <h3>Flight {{ searchedRecord.flightNumber }} (PNR: {{ searchedRecord.pnrNumber }})</h3>
+      </div>
+      <div class="carousel-pill">{{ searchedRecord.carouselNumber }}</div>
+    </div>
+
+    <div class="status-timeline" *ngIf="searchedRecord.trackingHistory">
+      <div *ngFor="let step of searchedRecord.trackingHistory" class="timeline-step" [class.done]="step.completed">
+        <div class="step-dot"></div>
+        <div class="step-info">
+          <strong>{{ step.checkpoint }}</strong>
+          <span>Time: {{ step.time }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing Luggage Records -->
+  <h2 style="margin-top: 36px; margin-bottom: 16px;">My Active Baggage Tags</h2>
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+    <p>Loading luggage telemetry...</p>
+  </div>
+
+  <div *ngIf="!isLoading && records.length > 0" class="baggage-table-wrapper">
+    <table class="fids-table">
+      <thead>
+        <tr>
+          <th>Baggage Tag</th>
+          <th>Flight</th>
+          <th>Bags</th>
+          <th>Weight</th>
+          <th>Current Status</th>
+          <th>Baggage Belt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of records">
+          <td><strong style="font-family: monospace;">{{ r.tagNumber }}</strong></td>
+          <td>{{ r.flightNumber }}</td>
+          <td>{{ r.bagCount }} Piece(s)</td>
+          <td>{{ r.weightKg }} kg</td>
+          <td><span class="badge badge-boarding">{{ r.status }}</span></td>
+          <td><strong>{{ r.carouselNumber }}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

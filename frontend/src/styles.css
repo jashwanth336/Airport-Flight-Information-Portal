@@ -1,0 +1,205 @@
+/* AeroGate Global Styles */
+:root {
+  --navy-dark: #0A192F;
+  --navy-mid: #1E293B;
+  --navy-light: #334155;
+  --sky-blue: #0284C7;
+  --sky-blue-hover: #0369A1;
+  --sky-light: #E0F2FE;
+  --amber-gold: #F59E0B;
+  --emerald-radar: #10B981;
+  --crimson-alert: #EF4444;
+  --cloud-slate: #F8FAFC;
+  --border-color: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--cloud-slate);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--sky-blue);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Common UI Elements */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+}
+.btn-primary {
+  background-color: var(--sky-blue);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--sky-blue-hover);
+  text-decoration: none;
+}
+.btn-secondary {
+  background-color: #E2E8F0;
+  color: var(--text-primary);
+}
+.btn-secondary:hover {
+  background-color: #CBD5E1;
+  text-decoration: none;
+}
+.btn-accent {
+  background-color: var(--amber-gold);
+  color: #1E293B;
+}
+.btn-accent:hover {
+  background-color: #D97706;
+  text-decoration: none;
+}
+.btn-danger {
+  background-color: var(--crimson-alert);
+  color: white;
+}
+.btn-danger:hover {
+  background-color: #DC2626;
+  text-decoration: none;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-on-time {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+.badge-boarding {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+.badge-delayed {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+.badge-departed {
+  background-color: #E0F2FE;
+  color: #075985;
+}
+.badge-landed {
+  background-color: #F1F5F9;
+  color: #475569;
+}
+
+/* FIDS Table */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  background: white;
+}
+.fids-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.fids-table th {
+  background-color: var(--navy-dark);
+  color: white;
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.fids-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95rem;
+}
+.fids-table tr:hover {
+  background-color: #F8FAFC;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 18px;
+}
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--sky-blue);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+.error-text {
+  color: var(--crimson-alert);
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+/* Loading Spinner */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid #E2E8F0;
+  border-top-color: var(--sky-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

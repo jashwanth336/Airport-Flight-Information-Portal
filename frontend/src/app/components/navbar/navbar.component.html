@@ -1,0 +1,35 @@
+<header class="navbar">
+  <div class="container navbar-container">
+    <a routerLink="/home" class="brand-logo">
+      <span class="radar-dot"></span>
+      <span class="brand-text">Aero<span>Gate</span></span>
+      <span class="hub-tag">DXB INTL</span>
+    </a>
+
+    <button class="mobile-toggle" (click)="toggleMenu()" aria-label="Toggle navigation">
+      ☰
+    </button>
+
+    <nav class="nav-links" [class.open]="isMenuOpen">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="isMenuOpen = false">Home</a>
+      <a routerLink="/flights" routerLinkActive="active" (click)="isMenuOpen = false">Flights</a>
+      <a routerLink="/services" routerLinkActive="active" (click)="isMenuOpen = false">Airport Services</a>
+      <a routerLink="/about" routerLinkActive="active" (click)="isMenuOpen = false">About</a>
+      <a routerLink="/contact" routerLinkActive="active" (click)="isMenuOpen = false">Contact</a>
+
+      <ng-container *ngIf="isLoggedIn">
+        <a routerLink="/dashboard" routerLinkActive="active" (click)="isMenuOpen = false">Dashboard</a>
+        <a routerLink="/booking" routerLinkActive="active" (click)="isMenuOpen = false">Book Flight</a>
+        <a routerLink="/my-bookings" routerLinkActive="active" (click)="isMenuOpen = false">My Bookings</a>
+        <a routerLink="/baggage-records" routerLinkActive="active" (click)="isMenuOpen = false">Baggage</a>
+        <a routerLink="/profile" routerLinkActive="active" (click)="isMenuOpen = false">Profile</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">Logout ({{ userName.split(' ')[0] }})</button>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="btn btn-secondary btn-sm" (click)="isMenuOpen = false">Login</a>
+        <a routerLink="/register" class="btn btn-primary btn-sm" (click)="isMenuOpen = false">Register</a>
+      </ng-container>
+    </nav>
+  </div>
+</header>

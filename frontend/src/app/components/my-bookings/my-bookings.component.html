@@ -1,0 +1,56 @@
+<div class="container page-container">
+  <div class="header-section">
+    <h1>My Flight Bookings & Boarding Passes</h1>
+    <p>Manage your reservations, check in online, and download boarding documents.</p>
+  </div>
+
+  <div *ngIf="message" class="alert-info">{{ message }}</div>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+    <p>Loading flight reservations...</p>
+  </div>
+
+  <div *ngIf="!isLoading && bookings.length === 0" class="empty-state">
+    <h3>No flight bookings found</h3>
+    <p>You have not booked any flights yet.</p>
+    <a routerLink="/flights" class="btn btn-primary" style="margin-top: 14px;">Browse Flight Schedules</a>
+  </div>
+
+  <div *ngIf="!isLoading && bookings.length > 0" class="bookings-grid">
+    <div *ngFor="let b of bookings" class="booking-ticket">
+      <div class="ticket-header">
+        <div>
+          <span class="pnr-tag">PNR: {{ b.pnrNumber }}</span>
+          <h2>{{ b.airline }} — {{ b.flightNumber }}</h2>
+        </div>
+        <span class="badge" [ngClass]="b.status === 'Confirmed' ? 'badge-on-time' : (b.status === 'Checked-In' ? 'badge-boarding' : 'badge-delayed')">
+          {{ b.status }}
+        </span>
+      </div>
+
+      <div class="ticket-body">
+        <div class="ticket-row">
+          <div><strong>Passenger:</strong> {{ b.passengerName }} ({{ b.passportNumber }})</div>
+          <div><strong>Class:</strong> {{ b.cabinClass }}</div>
+        </div>
+        <div class="ticket-row">
+          <div><strong>Route:</strong> {{ b.route }}</div>
+          <div><strong>Date:</strong> {{ b.travelDate }}</div>
+        </div>
+        <div class="ticket-row">
+          <div><strong>Assigned Seat:</strong> {{ b.seatNumber }}</div>
+          <div><strong>Luggage:</strong> {{ b.luggageCount }} Piece(s)</div>
+        </div>
+        <div class="ticket-row fare-row">
+          <div><strong>Total Fare Paid:</strong> ${{ b.totalFare }}</div>
+        </div>
+      </div>
+
+      <div class="ticket-actions" *ngIf="b.status !== 'Cancelled'">
+        <button *ngIf="b.status === 'Confirmed'" class="btn btn-accent btn-sm" (click)="checkIn(b.id)">Web Check-In</button>
+        <button class="btn btn-danger btn-sm" (click)="cancel(b.id)">Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+</div>

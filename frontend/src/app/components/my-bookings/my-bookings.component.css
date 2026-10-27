@@ -1,0 +1,72 @@
+.page-container {
+  padding: 40px 20px;
+}
+.header-section {
+  margin-bottom: 30px;
+}
+.header-section h1 {
+  font-size: 2rem;
+  color: var(--navy-dark);
+}
+.alert-info {
+  background: var(--sky-light);
+  color: #0369A1;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.booking-ticket {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+.ticket-header {
+  background: var(--navy-dark);
+  color: white;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ticket-header h2 {
+  font-size: 1.25rem;
+  margin-top: 4px;
+}
+.pnr-tag {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--amber-gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.ticket-body {
+  padding: 20px 24px;
+}
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+.fare-row {
+  border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+  margin-top: 10px;
+  color: var(--navy-dark);
+}
+.ticket-actions {
+  padding: 12px 24px;
+  background: var(--cloud-slate);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 10px;
+}
+@media (max-width: 800px) {
+  .bookings-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,94 @@
+<section class="hero-section">
+  <div class="container hero-content">
+    <div class="hero-badge">✈️ LIVE AIRPORT INTELLIGENCE PORTAL</div>
+    <h1 class="hero-title">Experience Seamless Transit with AeroGate</h1>
+    <p class="hero-subtitle">Real-time flight departures & arrivals, smart terminal services, baggage tracking, and instant ticket reservations at your fingertips.</p>
+
+    <div class="search-box">
+      <div class="search-inputs">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Enter Flight # (e.g. AG-402) or City (e.g. Dubai, New York)" (keyup.enter)="onSearch()" />
+        <button class="btn btn-primary" (click)="onSearch()">Search Flights</button>
+      </div>
+      <div class="quick-links">
+        <span>Popular Hubs:</span>
+        <a routerLink="/flights" [queryParams]="{search: 'New York'}">New York (JFK)</a>
+        <a routerLink="/flights" [queryParams]="{search: 'Dubai'}">Dubai (DXB)</a>
+        <a routerLink="/flights" [queryParams]="{search: 'London'}">London (LHR)</a>
+        <a routerLink="/flights" [queryParams]="{search: 'Tokyo'}">Tokyo (HND)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Live FIDS Ticker Banner -->
+<section class="ticker-banner">
+  <div class="container ticker-container">
+    <div class="ticker-label">LIVE STATUS</div>
+    <div class="ticker-items" *ngIf="featuredFlights.length > 0">
+      <span *ngFor="let f of featuredFlights" class="ticker-item">
+        <strong>{{ f.flightNumber }}</strong> to {{ f.destinationCity }} — 
+        <span class="badge" [ngClass]="'badge-' + f.status.toLowerCase().replace(' ', '-')">{{ f.status }}</span> (Gate {{ f.gate }})
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- Key Operational Statistics -->
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-card">
+      <div class="stat-number">45M+</div>
+      <div class="stat-label">Annual Passengers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">120+</div>
+      <div class="stat-label">Global Destinations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">98.4%</div>
+      <div class="stat-label">On-Time Reliability</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">10 min</div>
+      <div class="stat-label">Average Baggage Delivery</div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick Action Tiles -->
+<section class="services-preview container">
+  <div class="section-header">
+    <h2>Smart Airport Services</h2>
+    <p>Everything you need before boarding your flight</p>
+  </div>
+
+  <div class="preview-grid">
+    <div class="service-tile">
+      <div class="tile-icon">🛋️</div>
+      <h3>VIP Lounges</h3>
+      <p>Buffet dining, quiet workstations, showers, and nap pods in Terminals 1, 2 & 3.</p>
+      <a routerLink="/services" class="tile-link">Explore Lounges →</a>
+    </div>
+
+    <div class="service-tile">
+      <div class="tile-icon">🧳</div>
+      <h3>Smart Baggage Tracking</h3>
+      <p>Scan your baggage tag number and monitor handling checkpoints from drop to carousel.</p>
+      <a routerLink="/baggage-records" class="tile-link">Track Luggage →</a>
+    </div>
+
+    <div class="service-tile">
+      <div class="tile-icon">⚡</div>
+      <h3>Fast Track Clearance</h3>
+      <p>Skip standard security lines with expedited biometric boarding clearance.</p>
+      <a routerLink="/services" class="tile-link">View Fast Track →</a>
+    </div>
+
+    <div class="service-tile">
+      <div class="tile-icon">🛍️</div>
+      <h3>Duty Free Shopping</h3>
+      <p>Pre-order luxury fragrances, electronics, and watches with zero sales tax.</p>
+      <a routerLink="/services" class="tile-link">Shop Online →</a>
+    </div>
+  </div>
+</section>

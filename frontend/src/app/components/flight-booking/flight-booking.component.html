@@ -1,0 +1,103 @@
+<div class="container page-container">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h1>Flight Ticket Reservation</h1>
+      <p>Reserve seats and generate boarding pass & luggage tags.</p>
+    </div>
+
+    <div *ngIf="successMessage" class="alert-success">
+      ✓ {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert-error">
+      ✕ {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+      <!-- Flight Selection -->
+      <div class="form-group">
+        <label class="form-label">Select Flight Route *</label>
+        <select class="form-control" formControlName="flightId" (change)="onFlightChange()">
+          <option value="" disabled>-- Select Available Flight --</option>
+          <option *ngFor="let f of flights" [value]="f.id">
+            {{ f.flightNumber }} - {{ f.airline }} ({{ f.originCode }} → {{ f.destinationCode }}) [{{ f.status }}]
+          </option>
+        </select>
+        <div *ngIf="bookingForm.get('flightId')?.touched && bookingForm.get('flightId')?.invalid" class="error-text">
+          Please select a flight.
+        </div>
+      </div>
+
+      <!-- Selected Flight Info Banner -->
+      <div *ngIf="selectedFlight" class="selected-flight-preview">
+        <div><strong>Schedule:</strong> {{ selectedFlight?.scheduledDeparture | date:'medium' }}</div>
+        <div><strong>Terminal / Gate:</strong> {{ selectedFlight?.terminal }} (Gate {{ selectedFlight?.gate }})</div>
+        <div><strong>Economy Fare:</strong> ${{ selectedFlight?.economyFare }} | <strong>Business:</strong> ${{ selectedFlight?.businessFare }}</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label class="form-label">Passenger Full Name (as on Passport) *</label>
+          <input type="text" class="form-control" formControlName="passengerName" placeholder="e.g. Captain John Miller" />
+          <div *ngIf="bookingForm.get('passengerName')?.touched && bookingForm.get('passengerName')?.invalid" class="error-text">
+            Full name is required (min 3 chars).
+          </div>
+        </div>
+
+        <div class="form-group flex-1">
+          <label class="form-label">Passport / National ID Number *</label>
+          <input type="text" class="form-control" formControlName="passportNumber" placeholder="e.g. P89234120" />
+          <div *ngIf="bookingForm.get('passportNumber')?.touched && bookingForm.get('passportNumber')?.invalid" class="error-text">
+            Valid passport number required (6-12 alphanumeric).
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label class="form-label">Cabin Class *</label>
+          <select class="form-control" formControlName="cabinClass">
+            <option value="Economy">Economy Class</option>
+            <option value="Premium Economy">Premium Economy</option>
+            <option value="Business">Business Class</option>
+            <option value="First Class">First Class</option>
+          </select>
+        </div>
+
+        <div class="form-group flex-1">
+          <label class="form-label">Seat Preference *</label>
+          <select class="form-control" formControlName="seatNumber">
+            <option value="12A (Window)">12A (Window - Front)</option>
+            <option value="14B (Aisle)">14B (Aisle - Mid)</option>
+            <option value="20F (Window)">20F (Window - Wing)</option>
+            <option value="25C (Extra Legroom)">25C (Extra Legroom)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label class="form-label">Meal Preference</label>
+          <select class="form-control" formControlName="mealPreference">
+            <option value="Standard">Standard Airline Meal</option>
+            <option value="Vegetarian">Vegetarian (Asian / Western)</option>
+            <option value="Vegan">Strict Vegan</option>
+            <option value="Halal">Halal Certified</option>
+            <option value="Kosher">Kosher Certified</option>
+            <option value="Gluten-Free">Gluten-Free</option>
+          </select>
+        </div>
+
+        <div class="form-group flex-1">
+          <label class="form-label">Checked Baggage Count (Max 4 bags)</label>
+          <input type="number" class="form-control" formControlName="luggageCount" min="0" max="4" />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Confirming Reservation...' : 'Complete Flight Booking' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="container page-container">
+  <div class="fids-header">
+    <div>
+      <h1>Flight Information Display System (FIDS)</h1>
+      <p class="subtitle">Live real-time departures and arrivals at AeroGate International Hub.</p>
+    </div>
+    <div class="live-clock">
+      <span class="pulse-indicator"></span> 24/7 Radar Sync Active
+    </div>
+  </div>
+
+  <!-- Filter & Tab Toolbar -->
+  <div class="filter-toolbar">
+    <div class="tab-buttons">
+      <button class="tab-btn" [class.active]="activeTab === 'All'" (click)="setTab('All')">All Flights</button>
+      <button class="tab-btn" [class.active]="activeTab === 'Departure'" (click)="setTab('Departure')">🛫 Departures</button>
+      <button class="tab-btn" [class.active]="activeTab === 'Arrival'" (click)="setTab('Arrival')">🛬 Arrivals</button>
+    </div>
+
+    <div class="filter-inputs">
+      <input type="text" class="form-control filter-search" placeholder="Search flight #, airline, city..." [(ngModel)]="searchQuery" (input)="applyFilters()" />
+      <select class="form-control filter-select" [(ngModel)]="selectedAirline" (change)="applyFilters()">
+        <option value="">All Airlines</option>
+        <option *ngFor="let a of airlines" [value]="a">{{ a }}</option>
+      </select>
+      <select class="form-control filter-select" [(ngModel)]="selectedStatus" (change)="applyFilters()">
+        <option value="">All Statuses</option>
+        <option value="On Time">On Time</option>
+        <option value="Boarding">Boarding</option>
+        <option value="Delayed">Delayed</option>
+        <option value="Landed">Landed</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+    <p>Loading real-time radar flight data...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && filteredFlights.length === 0" class="empty-state">
+    <h3>No flights match your search criteria</h3>
+    <p>Try clearing filters or search by a different flight code.</p>
+  </div>
+
+  <!-- Flight Information Table -->
+  <div *ngIf="!isLoading && filteredFlights.length > 0" class="table-responsive">
+    <table class="fids-table">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th>Airline</th>
+          <th>Route</th>
+          <th>Schedule</th>
+          <th>Terminal</th>
+          <th>Gate</th>
+          <th>Status</th>
+          <th>Carousel</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flight of filteredFlights">
+          <td><strong class="flight-badge">{{ flight.flightNumber }}</strong></td>
+          <td>{{ flight.airline }}</td>
+          <td>
+            <strong>{{ flight.originCode }}</strong> → <strong>{{ flight.destinationCode }}</strong>
+            <div class="route-city">{{ flight.originCity }} to {{ flight.destinationCity }}</div>
+          </td>
+          <td>{{ flight.scheduledDeparture | date:'shortTime' }}</td>
+          <td>{{ flight.terminal }}</td>
+          <td><span class="gate-box">{{ flight.gate }}</span></td>
+          <td>
+            <span class="badge" [ngClass]="'badge-' + flight.status.toLowerCase().replace(' ', '-')">
+              {{ flight.status }}
+            </span>
+          </td>
+          <td>{{ flight.baggageCarousel }}</td>
+          <td class="action-cell">
+            <a [routerLink]="['/flights', flight.id]" class="btn btn-secondary btn-sm">Details</a>
+            <a [routerLink]="['/booking']" [queryParams]="{flightId: flight.id}" class="btn btn-primary btn-sm">Book</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

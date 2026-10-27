@@ -1,0 +1,65 @@
+<div class="container page-container">
+  <div class="welcome-banner">
+    <div>
+      <h1>Welcome aboard, {{ userName }}! ✈️</h1>
+      <p>Here is your airport operations summary and upcoming flight itinerary.</p>
+    </div>
+    <a routerLink="/booking" class="btn btn-accent">Book New Flight</a>
+  </div>
+
+  <div class="stats-row">
+    <div class="metric-card">
+      <div class="metric-val">{{ activeBookingsCount }}</div>
+      <div class="metric-lbl">Active Bookings</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">{{ miles | number }}</div>
+      <div class="metric-lbl">AeroMiles Balance</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">98.4%</div>
+      <div class="metric-lbl">On-Time Gate Rate</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">Terminal 3</div>
+      <div class="metric-lbl">Fast Track Assigned</div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dash-col main-col">
+      <h2>Immediate Flight Departures</h2>
+      <div class="table-responsive">
+        <table class="fids-table">
+          <thead>
+            <tr>
+              <th>Flight</th>
+              <th>Destination</th>
+              <th>Gate</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let f of upcomingFlights">
+              <td><strong>{{ f.flightNumber }}</strong></td>
+              <td>{{ f.destinationCity }} ({{ f.destinationCode }})</td>
+              <td>{{ f.gate }}</td>
+              <td><span class="badge" [ngClass]="'badge-' + f.status.toLowerCase().replace(' ', '-')">{{ f.status }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="dash-col side-col">
+      <h2>Quick Actions</h2>
+      <div class="quick-links-panel">
+        <a routerLink="/my-bookings" class="quick-btn">📋 View My Bookings</a>
+        <a routerLink="/baggage-records" class="quick-btn">🧳 Track Luggage by Tag</a>
+        <a routerLink="/flights" class="quick-btn">📡 Real-Time FIDS Board</a>
+        <a routerLink="/services" class="quick-btn">🛋️ Terminal Lounges & Duty Free</a>
+        <a routerLink="/profile" class="quick-btn">👤 Edit Passport Profile</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="container page-container">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h1>Airport Support & Assistance</h1>
+      <p>Have an inquiry regarding terminal locations, lost baggage, or special flight assistance? Contact the AeroGate Airport Operations Center.</p>
+
+      <div class="info-block">
+        <h3>📍 Terminal Operations Hub</h3>
+        <p>AeroGate International Airport, Concourse Central, Level 2<br>Gate Information Office: Desk C-104</p>
+      </div>
+
+      <div class="info-block">
+        <h3>📞 Emergency Helplines</h3>
+        <p>Flight Status Desk: +1 (800) 555-0199<br>Lost & Found Dispatch: +1 (800) 555-0144</p>
+      </div>
+
+      <div class="info-block">
+        <h3>🕒 Hours of Operation</h3>
+        <p>Runway & Terminal Desks: Open 24/7/365</p>
+      </div>
+    </div>
+
+    <div class="contact-form-card">
+      <h2>Submit Passenger Inquiry</h2>
+      <div *ngIf="successMessage" class="alert-success">{{ successMessage }}</div>
+
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="form-label">Your Name *</label>
+          <input type="text" [(ngModel)]="contactData.name" name="name" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" [(ngModel)]="contactData.email" name="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select [(ngModel)]="contactData.category" name="category" class="form-control">
+            <option value="Flight Inquiry">Flight Schedule Inquiry</option>
+            <option value="Lost & Found">Lost & Found Property</option>
+            <option value="Terminal Assistance">Wheelchair / Special Assistance</option>
+            <option value="Feedback">Passenger Feedback</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" [(ngModel)]="contactData.subject" name="subject" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message Details *</label>
+          <textarea [(ngModel)]="contactData.message" name="message" class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+.page-container {
+  padding: 40px 20px;
+}
+.flight-details-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  padding: 36px;
+  border: 1px solid var(--border-color);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 24px;
+}
+.card-header h1 {
+  font-size: 2.2rem;
+  color: var(--navy-dark);
+  margin: 10px 0 4px;
+}
+.aircraft-model {
+  color: var(--text-secondary);
+}
+.fare-box {
+  text-align: right;
+  background: #F0FDF4;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid #BBF7D0;
+}
+.fare-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #166534;
+  font-weight: 600;
+}
+.fare-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #15803D;
+}
+.route-banner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--cloud-slate);
+  padding: 30px;
+  border-radius: 12px;
+  margin: 30px 0;
+}
+.route-point {
+  text-align: center;
+}
+.iata-code {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  font-family: 'JetBrains Mono', monospace;
+}
+.city-name {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+.time-stamp {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--sky-blue);
+  margin-top: 4px;
+}
+.flight-path {
+  text-align: center;
+  flex: 1;
+  max-width: 250px;
+  position: relative;
+}
+.path-line {
+  height: 2px;
+  background: #CBD5E1;
+  margin-top: 8px;
+}
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.spec-card {
+  background: white;
+  border: 1px solid var(--border-color);
+  padding: 18px;
+  border-radius: 10px;
+  text-align: center;
+}
+.spec-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.spec-val {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+.amenities-section {
+  margin-bottom: 30px;
+}
+.amenities-section h3 {
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+  color: var(--navy-dark);
+}
+.amenity-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.amenity-badge {
+  background: var(--sky-light);
+  color: #0369A1;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.action-buttons {
+  display: flex;
+  gap: 14px;
+}
+@media (max-width: 768px) {
+  .specs-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-header { flex-direction: column; gap: 16px; }
+  .route-banner { flex-direction: column; gap: 20px; }
+}
